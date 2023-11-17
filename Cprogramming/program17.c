@@ -7,7 +7,7 @@ void main(){
 
         printf("%d\n",x);
 
-        ans  = ++x + ++x + ++x + ++x + ++x;
+        ans  = x++ + x++ + x++ + x++;
 
 
         printf("%d\n",x);
