@@ -12,7 +12,6 @@ void main(){
 	y=c;
         
 
-	//printf("x=%d y=%d\n",x,y);
 	printf("x=%d ",x);
 	printf("y=%d\n",y);
 	
