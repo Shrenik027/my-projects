@@ -1,0 +1,72 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  font-family: "Arial", sans-serif;
+  color: white;
+}
+
+/* Container Centering */
+.container {
+  text-align: center;
+}
+
+/* Heading Styling */
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+/* Animated Text Styling */
+.auto-type {
+  color: #00ff00;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+}
+
+/* Cursor Customization */
+.typed-cursor {
+  font-weight: bold;
+  color: #00ff00;
+  animation: blink 0.7s infinite;
+}
+
+/* Blinking Cursor Animation */
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.site-title {
+  text-align: center;
+  text-decoration: underline;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #e1f1e3;
+  font-family: "Open Sans Condensed", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  width: 100%;
+  bottom: 10px; /* Move it further down */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10; /* Ensure it appears above other elements */
+}

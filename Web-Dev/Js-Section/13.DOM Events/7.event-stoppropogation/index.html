@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #outerDiv {
+        display: block;
+        text-align: center;
+        background-color: red;
+        padding: 25px;
+        margin: 100px;
+        border-style: dotted;
+      }
+      #middleDiv {
+        border-style: double;
+        padding: 25px;
+        background-color: blueviolet;
+      }
+      #innerDiv {
+        list-style-type: none;
+        background-color: aqua;
+        border-style: dashed;
+        padding: 25px;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="outerDiv">
+      Outer Div
+      <div id="middleDiv">
+        Middle Div
+        <div id="innerDiv">Innner Div</div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
