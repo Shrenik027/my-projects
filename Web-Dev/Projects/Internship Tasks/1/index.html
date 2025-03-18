@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag-and-Drop Website Builder</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="form-container" id="form-container">
+      <form id="element-form">
+        <label for="text-content">Text Content</label>
+        <input type="text" id="text-content" name="text-content" />
+
+        <label for="font-size">Font Size</label>
+        <input
+          type="number"
+          id="font-size"
+          name="font-size"
+          min="10"
+          max="50"
+        />
+
+        <label for="image-url">Image URL</label>
+        <input type="url" id="image-url" name="image-url" />
+
+        <label for="button-text">Button Text</label>
+        <input type="text" id="button-text" name="button-text" />
+
+        <button type="submit">Save</button>
+      </form>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
