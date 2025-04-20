@@ -1,0 +1,534 @@
+Program 3 :-  Shell Script for System Information and Process Management
+
+#!/bin/bash
+
+echo "Displaying OS version, release number, and kernel version:"
+echo "------------------------------------------------------------"
+cat /etc/os-release
+uname -r
+
+echo ""
+echo "Displaying top 10 processes in descending order by memory usage:"
+echo "------------------------------------------------------------------"
+ps -eo user,pid,%cpu,%mem,comm --sort=-%mem | head -n 11
+
+echo ""
+echo "Displaying process with the highest memory usage:"
+echo "--------------------------------------------------"
+ps -eo user,pid,%cpu,%mem,comm --sort=-%mem | head -n 2 | tail -n 1
+
+echo ""
+echo "Displaying current logged-in user and log name:"
+echo "-----------------------------------------------"
+echo "User: $(whoami)"
+echo "Log name: $(logname)"
+
+echo ""
+echo "Displaying current shell, home directory, OS type, environment path, and current working directory:"
+echo "------------------------------------------------------------------------------------------------------"
+echo "Current shell: $SHELL"
+echo "Home directory: $HOME"
+echo "OS type: $(uname)"
+echo "Current environment path: $PATH"
+echo "Current working directory: $(pwd)"
+
+
+
+Program 4 :-   FCFS (First Come First Serve) CPU Scheduling in C
+
+#include <stdio.h>
+
+void findCompletionTime(int n, int at[], int bt[], int ct[]) {
+    ct[0] = at[0] + bt[0]; // Completion time of the first process
+
+    // Calculate completion time for all other processes
+    for (int i = 1; i < n; i++) {
+        // If the process arrives after the previous process completes
+        if (at[i] > ct[i-1]) {
+            ct[i] = at[i] + bt[i]; // Process starts after its arrival time
+        } else {
+            ct[i] = ct[i-1] + bt[i]; // Process starts after the previous process finishes
+        }
+    }
+}
+
+void findTurnAroundTime(int n, int at[], int bt[], int ct[], int tat[]) {
+    for (int i = 0; i < n; i++) {
+        tat[i] = ct[i] - at[i]; // Turnaround time = Completion Time - Arrival Time
+    }
+}
+
+void findWaitingTime(int n, int bt[], int tat[], int wt[]) {
+    for (int i = 0; i < n; i++) {
+        wt[i] = tat[i] - bt[i]; // Waiting time = Turnaround Time - Burst Time
+    }
+}
+
+void displayResults(int n, int at[], int bt[], int ct[], int tat[], int wt[]) {
+    printf("\nProcess\tArrival Time\tBurst Time\tWaiting Time\tTurnaround Time\tCompletion Time\n");
+
+    for (int i = 0; i < n; i++) {
+        printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", i+1, at[i], bt[i], wt[i], tat[i], ct[i]);
+    }
+}
+
+void findAverageTime(int n, int at[], int bt[]) {
+    int ct[n], tat[n], wt[n];
+    int total_wt = 0, total_tat = 0;
+
+    // Calculate completion time for each process
+    findCompletionTime(n, at, bt, ct);
+
+    // Calculate turnaround time for each process
+    findTurnAroundTime(n, at, bt, ct, tat);
+
+    // Calculate waiting time for each process
+    findWaitingTime(n, bt, tat, wt);
+
+    // Calculate total waiting time and total turnaround time
+    for (int i = 0; i < n; i++) {
+        total_wt += wt[i];
+        total_tat += tat[i];
+    }
+
+    // Display the results
+    displayResults(n, at, bt, ct, tat, wt);
+
+    // Print averages
+    printf("\nAverage Waiting Time: %.2f", (float)total_wt / n);
+    printf("\nAverage Turnaround Time: %.2f\n", (float)total_tat / n);
+}
+
+int main() {
+    int n;
+
+    // Taking input from the user
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    int at[n], bt[n];
+
+    // Input for arrival time and burst time
+    for (int i = 0; i < n; i++) {
+        printf("\nEnter Arrival Time and Burst Time for Process %d: ", i + 1);
+        scanf("%d %d", &at[i], &bt[i]);
+    }
+
+    // Calculate and display the average waiting time and turnaround time
+    findAverageTime(n, at, bt);
+
+    return 0;
+}
+
+
+Program 5 :- child process in Linux using peak system call   
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int mutex = 1;
+int full = 0;
+int empty = 10, x = 0; // Number of full slots as 0
+
+void producer() {
+    --mutex;
+    ++full;
+    --empty;
+    x++;
+    printf("\nProducer produces item %d\n", x);
+    ++mutex; // Increase mutex value by 1
+}
+
+// Function to consume an item and remove it from buffer
+void consumer() {
+    --mutex;       // Decrease mutex value by 1
+    --full;        // Decrease the number of full slots by 1
+    ++empty;       // Increase the number of empty slots by 1
+    printf("\nConsumer consumes item %d\n", x);
+    x--;
+    ++mutex;       // Increase mutex value by 1
+}
+
+int main() {
+    int n, i;
+
+    printf("\n1. Press 1 for Producer\n2. Press 2 for Consumer\n3. Press 3 for Exit");
+
+    // Using #pragma omp parallel for can give wrong value due to synchronization issues.
+    // 'critical' specifies that code is executed by only one thread at a time
+    // i.e., only one thread enters the critical section at a given time
+
+    #pragma omp critical
+    for (i = 1; i > 0; i++) {
+        printf("\nEnter your choice: ");
+        scanf("%d", &n);
+        switch (n) {
+            case 1:
+                if ((mutex == 1) && (empty != 0)) {
+                    producer(); // If mutex is 1 and empty is non-zero, then it is possible to produce
+                } else {
+                    printf("\nBuffer is full!"); // Otherwise, print buffer is full
+                }
+                break;
+
+            case 2:
+                if ((mutex == 1) && (full != 0)) {
+                    consumer(); // If mutex is 1 and full is non-zero, then it is possible to consume
+                } else {
+                    printf("\nBuffer is empty!"); // Otherwise, print Buffer is empty
+                }
+                break;
+
+            case 3:
+                exit(0); // Exit Condition
+                break;
+        }
+    }
+
+    return 0;
+}
+
+
+
+Program 6 :-   (Process ID Display)
+
+#include<stdio.h>
+#include<sys/types.h>
+#include<unistd.h>
+
+int main()
+{
+    pid_t my_pid;
+    my_pid = getpid();
+    printf("My process ID is: %d\n", my_pid);
+    return 0;
+}
+
+Exp 6 - C program to simulates the Producer-Consumer problem using semaphores
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int mutex = 1;
+int full = 0;
+int empty = 10, x = 0; // Number of full slots is 0 initially
+
+void producer() {
+    --mutex;
+    ++full;
+    --empty;
+    x++;
+    printf("\nProducer produces item %d\n", x);
+    ++mutex; // Increase mutex value by 1
+}
+
+void consumer() {
+    --mutex; // Decrease mutex value by 1
+    --full;  // Decrease the number of full slots by 1
+    ++empty; // Increase the number of empty slots by 1
+    printf("\nConsumer consumes item %d\n", x);
+    x--;
+    ++mutex; // Increase mutex value by 1
+}
+
+int main() {
+    int n, i;
+
+    printf("\n1. Press 1 for Producer\n2. Press 2 for Consumer\n3. Press 3 for Exit");
+
+    // Using #pragma omp parallel for can give wrong value due to synchronization issues
+    for (i = 1; i > 0; i++) {
+        printf("\nEnter your choice: ");
+        scanf("%d", &n);
+        switch(n) {
+            case 1:
+                if ((mutex == 1) && (empty != 0)) {
+                    producer();
+                } else {
+                    printf("\nBuffer is full!!");
+                }
+                break;
+            case 2:
+                if ((mutex == 1) && (full != 0)) {
+                    consumer();
+                } else {
+                    printf("\nBuffer is empty!!");
+                }
+                break;
+            case 3:
+                exit(0); // Exit Condition
+                break;
+        }
+    }
+
+    return 0;
+}
+
+
+
+Program 7 :-   Banker's Algorithm (Safety Algorithm)
+
+#include <stdio.h>
+
+#define P 5
+#define R 3
+
+void calculateNeed(int need[P][R], int max[P][R], int alloc[P][R]) {
+    for (int i = 0; i < P; i++) {
+        for (int j = 0; j < R; j++) {
+            need[i][j] = max[i][j] - alloc[i][j];
+        }
+    }
+}
+
+int isSafe(int processes[], int avail[], int max[][R], int alloc[][R]) {
+    int need[P][R];
+    calculateNeed(need, max, alloc);
+
+    int finish[P] = {0};
+    int safeSeq[P];
+    int work[R];
+    for (int i = 0; i < R; i++) {
+        work[i] = avail[i];
+    }
+
+    int count = 0;
+    while (count < P) {
+        int found = 0;
+        for (int p = 0; p < P; p++) {
+            if (finish[p] == 0) {
+                int flag = 1;
+                for (int j = 0; j < R; j++) {
+                    if (need[p][j] > work[j]) {
+                        flag = 0;
+                        break;
+                    }
+                }
+
+                if (flag) {
+                    for (int j = 0; j < R; j++) {
+                        work[j] += alloc[p][j];
+                    }
+
+                    safeSeq[count++] = processes[p];
+                    finish[p] = 1;
+                    found = 1;
+                }
+            }
+        }
+
+        if (!found) {
+            printf("System is not in a safe state.\n");
+            return 0;
+        }
+    }
+
+    printf("System is in a safe state.\nSafe sequence: ");
+    for (int i = 0; i < P; i++) {
+        printf("%d ", safeSeq[i]);
+    }
+    printf("\n");
+
+    return 1;
+}
+
+int main() {
+    int processes[] = {0, 1, 2, 3, 4};
+    int avail[] = {3, 3, 2};
+
+    int max[P][R] = {
+        {7, 5, 3},
+        {3, 2, 2},
+        {9, 0, 2},
+        {2, 2, 2},
+        {4, 3, 3}
+    };
+
+    int alloc[P][R] = {
+        {0, 1, 0},
+        {2, 0, 0},
+        {3, 0, 2},
+        {2, 1, 1},
+        {0, 0, 2}
+    };
+
+    isSafe(processes, avail, max, alloc);
+
+    return 0;
+}
+
+
+
+
+Program 8 :-   First-Fit Memory Allocation Program in C
+
+#include <stdio.h>
+
+// Function to allocate memory to blocks as per First Fit algorithm
+void firstFit(int blockSize[], int m, int processSize[], int n) {
+    int allocation[n];
+
+    // Initially no block is assigned to any process
+    for (int i = 0; i < n; i++)
+        allocation[i] = -1;
+
+    // Pick each process and find a suitable block
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (blockSize[j] >= processSize[i]) {
+                // Allocate block j to process i
+                allocation[i] = j;
+
+                // Reduce available memory in this block
+                blockSize[j] -= processSize[i];
+                break;
+            }
+        }
+    }
+
+    // Display allocation results
+    printf("\nProcess No.\tProcess Size\tBlock no.\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d\t\t%d\t\t", i + 1, processSize[i]);
+        if (allocation[i] != -1)
+            printf("%d", allocation[i] + 1);
+        else
+            printf("Not Allocated");
+        printf("\n");
+    }
+}
+
+// Driver code
+int main() {
+    int blockSize[] = {100, 500, 200, 300, 600};
+    int processSize[] = {212, 417, 112, 426};
+    int m = sizeof(blockSize) / sizeof(blockSize[0]);
+    int n = sizeof(processSize) / sizeof(processSize[0]);
+
+    firstFit(blockSize, m, processSize, n);
+
+    return 0;
+}
+
+
+
+
+Program 9 :-    FIFO Page Replacement Algorithm in C
+
+#include <stdio.h>
+
+int main() {
+    int i, j, n, a[50], frame[10], no, k, avail, count = 0;
+
+    printf("\nENTER THE NUMBER OF PAGES:\n");
+    scanf("%d", &n);
+
+    printf("\nENTER THE PAGE NUMBERS:\n");
+    for (i = 1; i <= n; i++) {
+        scanf("%d", &a[i]);
+    }
+
+    printf("\nENTER THE NUMBER OF FRAMES:\n");
+    scanf("%d", &no);
+
+    for (i = 0; i < no; i++) {
+        frame[i] = -1;
+    }
+
+    j = 0;
+
+    printf("\nRef string\tPage frames\n");
+    for (i = 1; i <= n; i++) {
+        printf("%d\t\t", a[i]);
+        avail = 0;
+
+        for (k = 0; k < no; k++) {
+            if (frame[k] == a[i]) {
+                avail = 1;
+                break;
+            }
+        }
+
+        if (avail == 0) {
+            frame[j] = a[i];
+            j = (j + 1) % no;
+            count++;
+
+            for (k = 0; k < no; k++) {
+                if (frame[k] != -1)
+                    printf("%d\t", frame[k]);
+                else
+                    printf("-\t");
+            }
+        }
+
+        printf("\n");
+    }
+
+    printf("\nPage Faults = %d\n", count);
+    return 0;
+}
+
+Exp 10 - Sequential file allocation method
+
+#include <stdio.h>
+
+struct File {
+    char name[20];
+    int startBlock;
+    int length;
+};
+
+int main() {
+    int n, i, j, totalBlocks;
+    printf("Enter total number of disk blocks: ");
+    scanf("%d", &totalBlocks);
+
+    int blocks[totalBlocks];
+    for (i = 0; i < totalBlocks; i++) {
+        blocks[i] = 0; // All blocks initially free
+    }
+
+    printf("Enter number of files: ");
+    scanf("%d", &n);
+
+    struct File files[n];
+
+    for (i = 0; i < n; i++) {
+        printf("\nEnter file name: ");
+        scanf("%s", files[i].name);
+
+        printf("Enter starting block of file %s: ", files[i].name);
+        scanf("%d", &files[i].startBlock);
+
+        printf("Enter length (no. of blocks) of file %s: ", files[i].name);
+        scanf("%d", &files[i].length);
+
+        int flag = 0;
+        for (j = files[i].startBlock; j < files[i].startBlock + files[i].length; j++) {
+            if (j >= totalBlocks || blocks[j] == 1) {
+                flag = 1;
+                break;
+            }
+        }
+
+        if (flag == 0) {
+            for (j = files[i].startBlock; j < files[i].startBlock + files[i].length; j++) {
+                blocks[j] = 1; // Mark block as allocated
+            }
+            printf("File %s allocated successfully.\n", files[i].name);
+        } else {
+            printf("File %s cannot be allocated. Not enough contiguous blocks or some blocks already allocated.\n", files[i].name);
+            i--; // Retry current file
+        }
+    }
+
+    printf("\nFile Allocation Table:\n");
+    printf("File\tStart Block\tLength\n");
+    for (i = 0; i < n; i++) {
+        printf("%s\t%d\t\t%d\n", files[i].name, files[i].startBlock, files[i].length);
+    }
+
+    return 0;
+}
