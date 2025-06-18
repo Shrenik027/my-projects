@@ -6,7 +6,7 @@ const PORT = 5000 || process.env.PORT;
 
 //Connect to MongoDB
 const URL =
-  "mongodb+srv://shrenik9477:153759@nik-cluster.evzlrrh.mongodb.net/students-database";
+  "mongodb+srv://xyz@nik-cluster.evzlrrh.mongodb.net/students-database";
 
 const connectDB = async () => {
   try {

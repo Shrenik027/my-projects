@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+
 const PORT = 5000 || process.env.PORT;
 
 //Connect to MongoDB
@@ -20,50 +21,51 @@ connectDB();
 
 // !Design--Schema
 
-const userprofileProfileSchema = new mongoose.Schema(
+const bookSchema = new mongoose.Schema(
   {
-    username: {
+    title: {
       type: String,
-      required: [true, " username is requird"],
-      unique: true,
-      minLength: 3,
-      maxLength: 10,
+      required: true,
+      set: (value) => value.trim(),
     },
-    email: {
+    author: {
       type: String,
-      required: [true, " Email is requird"],
-      match: /@/,
+      required: true,
+      set: (value) => value.trim(),
     },
-    age: {
-      type: Number,
-      required: [true, " Age is requird"],
-      min: 18,
-      max: 65,
-    },
-    gender: {
+    price: {
       type: String,
-      enum: ["male", "female", "Other"],
-      default: "Other",
+      required: true,
+      set: (value) => Math.round(value * 100) / 100,
+    },
+    tags: {
+      type: [String],
+      required: true,
+      set: (value) => value.map((tag) => tag.toLowerCase()),
+    },
+    url: {
+      type: [String],
+      required: true,
+      set: (value) => `https://nik.com/books/${value}`,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 //!Compile the schema to from mod0el
 
-const User = mongoose.model("User", userprofileProfileSchema);
+const Book = mongoose.model("Book", bookSchema);
 
 const createDoc = async () => {
   try {
-    const usercreated = await User.create({
-      gender: "male",
-      email: "shrenik2605@gmail.com",
-      age: 21,
-      username: "Shrenik",
+    const bookCreated = await Book.create({
+      title: "mongoose for everyone",
+      author: "NIK",
+      price: 10.90999,
+      tags: ["MONGODB", "NODE", "MONGOOSE", "EXPRESS"],
+      url: "mongoose-for-everyone",
     });
-    console.log(usercreated);
+    console.log(bookCreated);
   } catch (error) {
     console.log(error);
   }
