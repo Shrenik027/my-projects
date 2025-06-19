@@ -1,0 +1,16 @@
+{
+  "name": "1.getting-started",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "nik": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongodb": "^6.17.0"
+  }
+}
