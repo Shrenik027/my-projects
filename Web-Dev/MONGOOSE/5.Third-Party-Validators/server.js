@@ -5,8 +5,7 @@ const validator = require("validator");
 const PORT = 5000 || process.env.PORT;
 
 //Connect to MongoDB
-const URL =
-  "mongodb+srv://xyz@nik-cluster.evzlrrh.mongodb.net/students-database";
+const URL = "URL";
 
 const connectDB = async () => {
   try {
