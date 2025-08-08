@@ -17,9 +17,20 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"
     ></script>
     <script defer src="script.js"></script>
-    <title>Niks Portfolio</title>
+    <title>Shrenik's Portfolio</title>
   </head>
   <body>
+    <div id="quantum-core">
+      <div class="energy-orb"></div>
+      <canvas id="particle-field"></canvas>
+      <canvas id="neural-web"></canvas>
+      <audio id="ambient-pulse" loop>
+        <source
+          src="https://assets.codepen.io/3364143/quantum-pulse.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+    </div>
     <main>
       <aside>
         <ul class="Links">
@@ -44,6 +55,10 @@
             <i class="fa-solid fa-comments"></i>
             <p>Contact</p>
           </li>
+          <li onclick="Navigate(5)">
+            <i class="fa-solid fa-envelope"></i>
+            <p>Resume</p>
+          </li>
         </ul>
       </aside>
       <!-- Page 1 -->
@@ -52,12 +67,14 @@
           <div class="swiper-slide home-slide">
             <div class="HomeContent">
               <h1>
-                Hi! I'm <span class="stylized-name auto-type">Shrenik</span>
+                Hi! I'm <span class="stylized-name auto-type">Shrenik!</span>
               </h1>
-              <h2>A <span class="professions">Web Developer</span></h2>
+              <h2>
+                A <span class="professions">Full Stack Web Developer</span>
+              </h2>
               <p class="heroline">
-                A passionate Full Stack Developer crafting beautiful and
-                functional web experiences
+                Turning Ideas into Scalable Code — Full-Stack Developer
+                specializing in Mern Stack.
               </p>
               <div class="buttonGroup">
                 <button
@@ -72,16 +89,12 @@
                 <hr class="hr1" />
                 <hr class="hr2" />
               </div>
-              <img src="./assets/FullSizeRender .jpg" alt="" />
+              <img src="./assets/my-photo.png" alt="" />
               <div class="bottom-left-corner">
                 <hr class="hr1" />
                 <hr class="hr2" />
               </div>
             </div>
-            <p class="slide-help">
-              Scroll for next Slide
-              <i class="fa-solid fa-chevron-right fa-shake"></i>
-            </p>
           </div>
 
           <!-- Page 2 -->
@@ -93,12 +106,11 @@
                 I'm Shrenik, <span class="professions">A Web Developer</span>
               </h3>
               <p class="aboutme-details">
-                I’m a passionate and detail-oriented Computer Science (Data
-                Science) student with a deep interest in AI-powered web
-                development. I specialize in building clean, interactive, and
-                scalable web applications using JavaScript, Node.js, and modern
-                frontend technologies, while also exploring the creative
-                potential of AI and generative tools like OpenAI’s GPT.
+                passionate software developer focused on crafting scalable
+                backend systems with Node, Express, and MongoDB. I thrive on
+                solving real-world problems through clean code, secure APIs, and
+                reliable deployments — turning concepts into production-ready
+                solutions.
               </p>
 
               <div class="about-me-division">
@@ -107,10 +119,7 @@
                   <li><span>Avability:</span>24/7</li>
                   <li><span>Age:</span>20</li>
                   <li><span>Phone:</span>+918928609477</li>
-                  <li>
-                    <span>Degree:</span>Computer Science and Engineering(Data
-                    Science)
-                  </li>
+                  <li><span>Degree:</span>Computer Science (Data Science)</li>
                 </div>
               </div>
             </div>
@@ -121,208 +130,211 @@
             <div class="skills-content">
               <h2 class="heading">My Skills</h2>
               <div class="skills-grid">
-                <!-- skill1 -->
+                <!-- JavaScript -->
+                <div class="skills-card">
+                  <i class="fa-brands fa-js"></i>
+                  <h3>JavaScript</h3>
+                  <p>
+                    Core language for building interactive web interfaces and
+                    logic.
+                  </p>
+                </div>
+
+                <!-- Node.js -->
+                <div class="skills-card">
+                  <i class="fa-brands fa-node-js"></i>
+                  <h3>Node.js</h3>
+                  <p>
+                    Server-side runtime for building scalable backend
+                    applications.
+                  </p>
+                </div>
+
+                <!-- Express.js -->
+                <div class="skills-card">
+                  <i class="fa-solid fa-code-branch"></i>
+                  <h3>Express.js</h3>
+                  <p>
+                    Minimal Node.js framework for building robust REST APIs.
+                  </p>
+                </div>
+
+                <!-- React.js -->
+                <div class="skills-card">
+                  <i class="fa-brands fa-react"></i>
+                  <h3>React.js</h3>
+                  <p>Frontend library for building dynamic user interfaces.</p>
+                </div>
+
+                <!-- REST API -->
+                <div class="skills-card">
+                  <i class="fa-solid fa-plug"></i>
+                  <h3>REST API</h3>
+                  <p>
+                    Designed and consumed RESTful services for app
+                    communication.
+                  </p>
+                </div>
+
+                <!-- MongoDB -->
+                <div class="skills-card">
+                  <i class="fa-solid fa-database"></i>
+                  <h3>MongoDB</h3>
+                  <p>
+                    Worked with NoSQL database for scalable and flexible data
+                    storage.
+                  </p>
+                </div>
+
+                <!-- C/C++ -->
+                <div class="skills-card">
+                  <i class="fa-solid fa-c"></i>
+                  <h3>C/C++</h3>
+                  <p>
+                    Solid understanding of low-level programming and DSA
+                    concepts.
+                  </p>
+                </div>
+
+                <!-- HTML -->
                 <div class="skills-card">
                   <i class="fa-brands fa-html5"></i>
                   <h3>HTML</h3>
-                  <p>
-                    Proficient in HTML for structuring and designing web pages
-                    with semantic elements.
-                  </p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
+                  <p>Semantic structuring and building blocks for web pages.</p>
                 </div>
-                <!-- skill3 -->
+
+                <!-- CSS -->
                 <div class="skills-card">
                   <i class="fa-brands fa-css3-alt"></i>
                   <h3>CSS</h3>
                   <p>
-                    Skilled in CSS for styling, layout design, and creating
-                    responsive web experiences.
+                    Styled web interfaces with responsive and clean designs.
                   </p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
                 </div>
-                <!-- skill 4 -->
-                <div class="skills-card">
-                  <i class="fa-brands fa-square-js"></i>
-                  <h3>JavaScript</h3>
-                  <p>Expert in modern JavaScript, including ES6+ features</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- skill2 -->
-                <div class="skills-card">
-                  <i class="fa-brands fa-node"></i>
-                  <h3>Node.js</h3>
-                  <p>Server-side development with Node.js</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- skill -->
-                <div class="skills-card">
-                  <i class="fa-solid fa-server"></i>
-                  <h3>Express.js</h3>
-                  <p>Server-side development with Express</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- skill -->
-                <div class="skills-card">
-                  <i class="fa-brands fa-react"></i>
-                  <h3>React.js</h3>
-                  <p>Frontend Development using React.js</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="skills-card">
-                  <i class="fa-brands fa-npm"></i>
-                  <h3>NPM</h3>
-                  <p>Experience with Node Package Manager.</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- skill 5-->
-                <div class="skills-card">
-                  <i class="fas fa-database"></i>
-                  <h3>Database</h3>
-                  <p>Experience with Mongodb/Mongoose</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- skill 5-->
-                <div class="skills-card">
-                  <i class="fa-solid fa-paper-plane"></i>
-                  <h3>Postman</h3>
-                  <p>Experience with Postman for API Development</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- skill 4 -->
-                <div class="skills-card">
-                  <i class="fa-solid fa-microchip"></i>
-                  <h3>Cursor AI</h3>
-                  <p>Experience in AI Coading with Cursor.ai</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- skill6 -->
+
+                <!-- Bootstrap -->
                 <div class="skills-card">
                   <i class="fa-brands fa-bootstrap"></i>
                   <h3>Bootstrap</h3>
                   <p>
-                    Proficient in Bootstrap for crafting responsive and visually
-                    appealing web interfaces
+                    Utilized Bootstrap for mobile-first and responsive design.
                   </p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
                 </div>
 
-                <!-- GitHub -->
+                <!-- Postman -->
+                <div class="skills-card">
+                  <i class="fa-solid fa-paper-plane"></i>
+                  <h3>Postman</h3>
+                  <p>
+                    Tested and debugged APIs using Postman environment setups.
+                  </p>
+                </div>
+
+                <!-- AI Integration -->
+                <div class="skills-card">
+                  <i class="fa-solid fa-brain"></i>
+                  <h3>AI Integration</h3>
+                  <p>
+                    Integrated AI capabilities to enhance app intelligence and
+                    features.
+                  </p>
+                </div>
+
+                <!-- OpenAI API -->
+                <div class="skills-card">
+                  <i class="fa-solid fa-robot"></i>
+                  <h3>OpenAI API</h3>
+                  <p>
+                    Built projects using ChatGPT & other OpenAI models via API.
+                  </p>
+                </div>
+
+                <!-- Prompt Engineering -->
+                <div class="skills-card">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  <h3>Prompt Engineering</h3>
+                  <p>
+                    Crafted optimized prompts for effective AI outputs and
+                    tasks.
+                  </p>
+                </div>
+
+                <!-- Git & GitHub -->
                 <div class="skills-card">
                   <i class="fa-brands fa-github"></i>
-                  <h3>GitHub</h3>
+                  <h3>Git & GitHub</h3>
                   <p>
-                    Proficient in version control and collaboration using
+                    Version control, branching, and project collaboration on
                     GitHub.
                   </p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
                 </div>
-                <!-- Linux -->
-                <div class="skills-card">
-                  <i class="fa-brands fa-linux"></i>
-                  <h3>Linux</h3>
-                  <p>
-                    Skilled in Linux commands for system navigation and file
-                    management.
-                  </p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
-                </div>
+
                 <!-- VS Code -->
                 <div class="skills-card">
-                  <i class="fa-brands fa-code"></i>
+                  <i class="fa-solid fa-code"></i>
                   <h3>VS Code</h3>
-                  <p>Developed web applications using Visual Studio Code.</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
+                  <p>
+                    Preferred code editor for all full-stack development tasks.
+                  </p>
                 </div>
-                <!-- Data Structures and Algorithms -->
+
+                <!-- Linux Commands -->
+                <div class="skills-card">
+                  <i class="fa-brands fa-linux"></i>
+                  <h3>Linux Commands</h3>
+                  <p>
+                    Basic to intermediate shell commands and server navigation.
+                  </p>
+                </div>
+
+                <!-- DSA -->
                 <div class="skills-card">
                   <i class="fa-solid fa-diagram-project"></i>
                   <h3>DSA</h3>
-                  <p>Strong understanding of Data Structures and Algorithms.</p>
-                  <div class="progress-bar">
-                    <div class="progress" data-progress="90">
-                      <span class="progress-text">90%</span>
-                    </div>
-                  </div>
+                  <p>
+                    Strong grasp on data structures and algorithms for coding
+                    interviews.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- page 4 -->
-
           <div id="works" class="swiper-slide works">
             <div class="works-content">
               <h1 class="heading">Recent Projects</h1>
               <div class="works-grid">
-                <!-- work 1 -->
+                <!-- Plant Analysis Tool -->
                 <div class="work-card">
-                  <img
-                    src="./assets/Screenshot 2025-06-26 171841.png"
-                    alt="project 1"
-                  />
+                  <img src="./assets/plant.png" alt="Plant Analysis Tool" />
                   <div class="work-info">
                     <div>
-                      <h3>AI Chat</h3>
+                      <h3>Plant Analysis Tool</h3>
                       <p>
-                        Developed an intelligent chat application powered by AI
-                        to simulate human-like conversations.
+                        An AI tool using Gemini API to analyze plant images.
+                        MongoDB handles storage, with Node.js & Express backend
+                        and CSS frontend.
+                      </p>
+                    </div>
+                    <div class="work-link">
+                      <a href="" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        Live
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- AI Chat App -->
+                <div class="work-card">
+                  <img src="./assets/ai chat.png" alt="AI Chat App" />
+                  <div class="work-info">
+                    <div>
+                      <h3>AI Chat App</h3>
+                      <p>
+                        A simple conversational web app using HTML, CSS,
+                        JavaScript, and OpenAI API for interactive AI chats.
                       </p>
                     </div>
                     <div class="work-link">
@@ -336,18 +348,45 @@
                     </div>
                   </div>
                 </div>
-                <!-- work 1 -->
+
+                <!-- Task Manager Pro -->
                 <div class="work-card">
                   <img
-                    src="https://images.pexels.com/photos/6694543/pexels-photo-6694543.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="project 1"
+                    src="./assets/task manager pro.png"
+                    alt="Task Manager Pro"
+                  />
+                  <div class="work-info">
+                    <div>
+                      <h3>Task Manager Pro</h3>
+                      <p>
+                        Task organizer web app showcasing advanced DOM
+                        manipulation using HTML, CSS, and vanilla JavaScript.
+                      </p>
+                    </div>
+                    <div class="work-link">
+                      <a
+                        href="https://task-manager-pro-nik0280.netlify.app/"
+                        target="_blank"
+                      >
+                        <i class="fas fa-external-link-alt"></i>
+                        Live
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Split & Share -->
+                <div class="work-card">
+                  <img
+                    src="./assets/split and share.png"
+                    alt="Split and Share App"
                   />
                   <div class="work-info">
                     <div>
                       <h3>Split & Share</h3>
                       <p>
-                        A smart tool to calculate and split bills fairly,
-                        perfect for group dining or shared expenses.
+                        A bill splitting tool made with HTML, CSS, and JS,
+                        allowing users to divide expenses among groups easily.
                       </p>
                     </div>
                     <div class="work-link">
@@ -361,21 +400,19 @@
                     </div>
                   </div>
                 </div>
-                <!-- work 2 -->
+
+                <!-- Smart Loan Calculator -->
                 <div class="work-card">
-                  <img
-                    src="https://images.pexels.com/photos/4968384/pexels-photo-4968384.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="project 2"
-                  />
+                  <img src="./assets/loan.png" alt="Smart Loan Calculator" />
                   <div class="work-info">
                     <div>
                       <h3>Smart Loan Calculator</h3>
                       <p>
-                        An intuitive tool to calculate monthly loan payments and
-                        total interest effortlessly
+                        Loan calculator tool built using HTML, CSS, and
+                        JavaScript, enabling real-time EMI calculations.
                       </p>
                     </div>
-                    <div class="work-links">
+                    <div class="work-link">
                       <a
                         href="https://smartloancalculator-nik.netlify.app/"
                         target="_blank"
@@ -386,24 +423,89 @@
                     </div>
                   </div>
                 </div>
-                <!-- work 3 -->
+
+                <!-- Savings Calculator -->
                 <div class="work-card">
-                  <img
-                    src="https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Movie Finder"
-                  />
+                  <img src="./assets/savings.png" alt="Savings Calculator" />
+                  <div class="work-info">
+                    <div>
+                      <h3>Savings Calculator</h3>
+                      <p>
+                        Nurture your financial future with our eco-friendly
+                        savings calculator. Watch your money grow like a
+                        thriving garden!
+                      </p>
+                    </div>
+                    <div class="work-link">
+                      <a
+                        href="https://savings-cal-nik28.netlify.app/"
+                        target="_blank"
+                      >
+                        <i class="fas fa-external-link-alt"></i>
+                        Live
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Movie Finder -->
+                <div class="work-card">
+                  <img src="./assets/Movie.png" alt="Movie Finder" />
                   <div class="work-info">
                     <div>
                       <h3>Movie Finder</h3>
                       <p>
-                        A dynamic movie search platform built with css, allowing
-                        users to explore movies and view detailed information.
+                        A responsive web app to search and explore movie details
+                        using The Movie Database API.
                       </p>
                     </div>
-                    <div class="work-links">
+                    <div class="work-link">
                       <a
                         href="https://movie-nik-0280.netlify.app/"
                         target="_blank"
+                      >
+                        <i class="fas fa-external-link-alt"></i>
+                        Live
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Weather Project -->
+                <div class="work-card">
+                  <img src="./assets/weather.png" alt="Weather Project" />
+                  <div class="work-info">
+                    <div>
+                      <h3>Weather Project</h3>
+                      <p>
+                        A simple real-time weather app that provides current
+                        weather updates for any city using API integration.
+                      </p>
+                    </div>
+                    <div class="work-link">
+                      <a href="https://w2p-nik.netlify.app/" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        Live
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Temperature Converter -->
+                <div class="work-card">
+                  <img src="./assets/temp.png" alt="Temperature Converter" />
+                  <div class="work-info">
+                    <div>
+                      <h3>Temperature Converter</h3>
+                      <p>
+                        Convert temperatures between Celsius, Fahrenheit, and
+                        Kelvin with a clean, interactive UI.
+                      </p>
+                    </div>
+                    <div>
+                      <a
+                        href="https://temp-convertor-nik0280.netlify.app/"
+                        target=""
                       >
                         <i class="fas fa-external-link-alt"></i>
                         Live
@@ -418,72 +520,230 @@
           <!-- Page 6 -->
 
           <div class="swiper-slide contactMe">
-            <h1 class="heading">Contact Me</h1>
-            <div class="contactinfo">
-              <i class="fa-solid fa-phone"></i>
-              <h3>Mobile No.</h3>
-              <p>+918928609477</p>
-            </div>
-            <div class="contactinfo">
-              <i class="fa-solid fa-location-dot"></i>
-              <h3>Location</h3>
-              <p>Navi Mumbai</p>
-            </div>
-            <div class="contactinfo">
-              <i class="fa-regular fa-envelope"></i>
-              <h3>Email</h3>
-              <p>shrenik9477@gmail.com@gmail.com</p>
-            </div>
-            <div class="contactinfo">
-              <i class="fa-solid fa-globe"></i>
-              <h3>Website</h3>
-              <p>https://nik28-portfolio.netlify.app/</p>
-            </div>
-            <form>
-              <h2>
-                Send Me A Message
-                <div class="SocialLinks">
-                  <i
-                    class="fa-brands fa-github"
-                    aria-label="GitHub"
-                    onclick="window.location.href='https://github.com/Shrenik027?tab=overview&from=2025-03-01&to=2025-03-16' "
-                    target="_blank"
-                  ></i>
-                  <i
-                    class="fa-brands fa-instagram"
-                    aria-label="Instagram"
-                    onclick="window.location.href='https://www.instagram.com/shrenik_dubal/?hl=en'"
-                  ></i>
-                  <i
-                    class="fa-brands fa-twitter"
-                    aria-label="Twitter"
-                    onclick="window.location.href='https://x.com/Shrenik_Dubal '"
-                  ></i>
-                  <i
-                    class="fa-brands fa-linkedin"
-                    aria-label="linkedin"
-                    onclick="window.location.href='https://www.linkedin.com/in/shrenik-dubal-b1692029a/'"
-                  ></i>
+            <h1 class="heading">CONTACT ME</h1>
+
+            <div class="contact-container">
+              <div class="contact-info">
+                <div class="contact-card">
+                  <i class="fa-solid fa-phone"></i>
+                  <h3>PHONE</h3>
+                  <p>+91 8928609477</p>
                 </div>
-              </h2>
-              <input type="text" placeholder="Name" required />
-              <input type="text" placeholder="email" required />
-              <textarea
-                rows="10"
-                placeholder="Type Your Message Here..."
-                required
-              ></textarea>
-              <button class="primary">Send</button>
-            </form>
-            <footer>
-              <ul>
-                <!-- <li>Copyright 0 2025 Shrenik</li> -->
-              </ul>
-            </footer>
+
+                <div class="contact-card">
+                  <i class="fa-solid fa-location-dot"></i>
+                  <h3>LOCATION</h3>
+                  <p>Navi Mumbai, India</p>
+                </div>
+
+                <div class="contact-card">
+                  <i class="fa-regular fa-envelope"></i>
+                  <h3>EMAIL</h3>
+                  <p>shrenik9477@gmail.com</p>
+                </div>
+              </div>
+
+              <div class="contact-form">
+                <h2>
+                  SEND A MESSAGE
+                  <div class="social-links">
+                    <a href="https://github.com/Shrenik027" target="_blank"
+                      ><i class="fab fa-github"></i
+                    ></a>
+                    <a
+                      href="https://www.instagram.com/shrenik_dubal/"
+                      target="_blank"
+                      ><i class="fab fa-instagram"></i
+                    ></a>
+                    <a href="https://x.com/Shrenik_Dubal" target="_blank"
+                      ><i class="fab fa-twitter"></i
+                    ></a>
+                    <a
+                      href="https://www.linkedin.com/in/shrenik-dubal-b1692029a/"
+                      target="_blank"
+                      ><i class="fab fa-linkedin"></i
+                    ></a>
+                  </div>
+                </h2>
+
+                <form action="https://formspree.io/f/xldnvrjr" method="POST">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <textarea
+                      name="message"
+                      placeholder="Your Message..."
+                      required
+                    ></textarea>
+                  </div>
+                  <button type="submit" class="submit-btn">
+                    TRANSMIT MESSAGE
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resume Section -->
+          <div class="swiper-slide resume">
+            <div class="resume-container">
+              <h1 class="heading">MY <span class="neon-text">RESUME</span></h1>
+
+              <div class="resume-grid">
+                <!-- Education Section -->
+                <div class="resume-section">
+                  <div class="section-header">
+                    <i class="fas fa-graduation-cap neon-accent"></i>
+                    <h2>EDUCATION</h2>
+                    <div class="header-line"></div>
+                  </div>
+
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-point"></div>
+                      <div class="timeline-content">
+                        <div class="timeline-date">2023 - Present</div>
+                        <h3>Computer Science (Data Science)</h3>
+                        <h4>Mumbai University</h4>
+                        <p>
+                          Specialized in data structures, algorithms, and
+                          machine learning concepts.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item">
+                      <div class="timeline-point"></div>
+                      <div class="timeline-content">
+                        <div class="timeline-date">2022 - 2023</div>
+                        <h3>Higher Secondary Education</h3>
+                        <h4>SGM College Karad</h4>
+                        <p>Focus on Information Technology and Mathematics.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Experience Section -->
+                <div class="resume-section">
+                  <div class="section-header">
+                    <i class="fas fa-briefcase neon-accent"></i>
+                    <h2>EXPERIENCE</h2>
+                    <div class="header-line"></div>
+                  </div>
+
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-point"></div>
+                      <div class="timeline-content">
+                        <div class="timeline-date">2022 - Present</div>
+                        <h3>Full Stack Developer</h3>
+                        <h4>Personal Projects</h4>
+                        <ul>
+                          <li>
+                            Developed responsive web applications using MERN
+                            stack
+                          </li>
+                          <li>
+                            Implemented RESTful APIs with Node.js and Express
+                          </li>
+                          <li>Optimized database performance for MongoDB</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item">
+                      <div class="timeline-point"></div>
+                      <div class="timeline-content">
+                        <div class="timeline-date">2023 - Present</div>
+                        <h3>Coading Club Core Member</h3>
+                        <h4>SCOE Kharghar</h4>
+                        <ul>
+                          <li>Organised coading sessions, Hackathons</li>
+                          <li>
+                            Participated in college-level events and contests
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item">
+                      <div class="timeline-point"></div>
+                      <div class="timeline-content">
+                        <div class="timeline-date">2024 - Present</div>
+                        <h3>Data Science Students Association</h3>
+                        <h4>SCOE Kharghar</h4>
+                        <ul>
+                          <li>
+                            Designed and managed Instagram Posts for techinical
+                            events like DSSA Unite
+                          </li>
+                          <li>
+                            Collaborated with the core team to maintain a
+                            consistent brand style.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item">
+                      <div class="timeline-point"></div>
+                      <div class="timeline-content">
+                        <div class="timeline-date">2023 - 2024</div>
+                        <h3>National Service Scheme(NSS) Member</h3>
+                        <h4>SCOE Kharghar</h4>
+                        <ul>
+                          <li>
+                            Voluntered in community initiatives like blood
+                            donation and cleanliness drives
+                          </li>
+                          <li>Developed Leadership skills.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Download Button -->
+              <div class="resume-download">
+                <a
+                  href="https://drive.google.com/file/d/1j-SxG31snU05PK1OslQTLjye4JEzocTP/view?usp=sharing"
+                  download
+                  class="download-btn"
+                  target="_blank"
+                >
+                  <i class="fas fa-file-download"></i> DOWNLOAD RESUME
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </main>
+    <!-- Add before closing body tag
+    <div class="quantum-network">
+      <div class="quantum-particle"></div>
+      <div class="quantum-particle"></div>
+      <div class="quantum-particle"></div>
+      
+    </div> -->
+    <canvas id="neuralCanvas"></canvas>
+
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
   </body>
 </html>
