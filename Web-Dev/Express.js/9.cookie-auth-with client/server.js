@@ -6,7 +6,7 @@ const PORT = 3001;
 //!Middleware
 app.use(express.urlencoded({ extended: true }));
 
-//!Ser the view engine
+//!Set the view engine
 
 app.set("view engine", "ejs");
 app.use(cookieParser());
