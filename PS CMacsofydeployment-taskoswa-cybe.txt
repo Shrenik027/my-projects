@@ -1,0 +1,8 @@
+PS C:\Macsofy\deployment-task\oswa-cybersecurity-platform> ssh-keygen -t rsa -b 4096 -C "oswa-deployment-key"
+Generating public/private rsa key pair.
+Enter file in which to save the key (C:\Users\shren/.ssh/id_rsa): 
+Created directory 'C:\\Users\\shren/.ssh'.
+Enter passphrase (empty for no passphrase):Macsofy.Project-oswaCybersecurity
+
+
+Public Key- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDH8f2jMzv2yog+UT+DdJRyLkYtHPWOtArrM6JDvBxp/A58wr3sX0tXilkm9asSZL0hs9u0GRceOTT+udqUzl/4wZP6Fnq1kd7DDA5F0X7jFfFiB2M8UrDbQGNlP0m8YEjO7B23/5HGIyOpVrWradhzEoSZ1FUhksWE/ZsC33grwnGeI9pJjsoqqH4f7//JygrcYCrJwsvj1/wyVnP0ka6VVYro2eVqucML0dXThlUwqNo/MyuE9hGF07QoN1JH0LZZqd+1KcNt2zKF+BR1ngDi42jyAw3dVjA3LtMW+mtae4sXIzJpoyw81RGlapcb1q1zx2HTrg513gRur63l+8ZNp9CekMKbthrnlPNknqSGqEZQt3bMMnRMXPP9nZ+U6/zxfeHTjc0Y7WyJ7E4u6GzeIMnmMkGSP2L6b7ffBD5OAFtIxGJN1Wa3pSLNOTc9F/KKlwDpbYd+wQyOl/zLu5TvnIhiFY/82bQ3ua7SF2TULhho5BkpxZct/pVJBunfPYhLSlbNn2mb6Ju52ogx/X60IJomnnphuxFUPmszAa8Jgo9QKlFopyMFNE1QeNabUbuhQmY3CX83SYIURfnyjJazVQdeK8h01RGlrtfeuKUvmBPmAIeJSJM++cHGYdzjKzdA/9Rwb2DZiVxlb6TdjJEa/eMU5PtlvCCpcLXrb5UmUQ== oswa-deployment-key

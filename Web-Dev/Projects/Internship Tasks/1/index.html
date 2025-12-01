@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag-and-Drop Website Builder</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="builder-container">
+      <!-- Sidebar for draggable elements -->
+      <div class="sidebar">
+        <div class="element" draggable="true" id="text-element">Text</div>
+        <div class="element" draggable="true" id="image-element">Image</div>
+        <div class="element" draggable="true" id="button-element">Button</div>
+      </div>
+
+      <!-- Canvas for dropping elements -->
+      <div class="canvas" id="canvas">
+        <p>Drag elements here to build your website.</p>
+      </div>
+
+      <!-- Properties panel for editing element properties -->
+      <div class="properties-panel" id="properties-panel">
+        <h3>Properties</h3>
+        <div id="dynamic-form"></div>
+        <!-- Placeholder for dynamic form -->
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="clickHandler">Click me</button>
+    <button ondblclick="dbclickHandler">Double Click Me!</button>
+    <div onmouseover="onMouseOverHandler">Hover Over Me</div>
+
+    <input
+      onkeydown="onKeyDownHandler()"
+      onkeyup="onkeyupHandler()"
+      type="text"
+      placeholder="Enter Something"
+    />
+
+    <form onsubmit="onSubmitEvent()">
+      <input onfocus="onfocusHandler()" onblur="onblurHandler()" type="text" />
+      <button type="submit">Submit</button>
+    </form>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HTML Revision Document">
+    <meta name="keywords" content="HTML, Revision, Basics">
+    <title>HTML Revision</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Headings -->
+    <h1>Main Heading</h1>
+    <h2>Subheading</h2>
+    <p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>
+    
+    <hr>
+    
+    <!-- Lists -->
+    <h3>Lists</h3>
+    <ul>
+        <li>Unordered List Item 1</li>
+        <li>Unordered List Item 2</li>
+    </ul>
+    <ol>
+        <li>Ordered List Item 1</li>
+        <li>Ordered List Item 2</li>
+    </ol>
+    
+    <hr>
+    
+    <!-- Table -->
+    <h3>Table</h3>
+    <table>
+        <caption>Sample Table</caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John</td>
+                <td>25</td>
+            </tr>
+            <tr>
+                <td>Jane</td>
+                <td>30</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <hr>
+    
+    <!-- Forms -->
+    <h3>Forms</h3>
+    <form action="#" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+        
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date"><br><br>
+        
+        <label for="file">Upload File:</label>
+        <input type="file" id="file" name="file"><br><br>
+        
+        <label for="range">Select Range:</label>
+        <input type="range" id="range" name="range" min="0" max="100"><br><br>
+        
+        <label for="gender">Gender:</label>
+        <input type="radio" id="male" name="gender" value="Male"> Male
+        <input type="radio" id="female" name="gender" value="Female"> Female<br><br>
+        
+        <label for="hobbies">Hobbies:</label>
+        <input type="checkbox" name="hobbies" value="Reading"> Reading
+        <input type="checkbox" name="hobbies" value="Sports"> Sports<br><br>
+        
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="India">India</option>
+            <option value="USA">USA</option>
+        </select><br><br>
+        
+        <textarea name="message" rows="4" cols="30" placeholder="Enter your message"></textarea><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+    
+    <hr>
+    
+    <!-- Media -->
+    <h3>Media</h3>
+    <img src="https://via.placeholder.com/150" alt="Sample Image"><br>
+    <audio controls>
+        <source src="sample.mp3" type="audio/mpeg">
+    </audio><br>
+    <video width="320" height="240" controls>
+        <source src="sample.mp4" type="video/mp4">
+    </video>
+    
+    <hr>
+    
+    <!-- Links -->
+    <h3>Links</h3>
+    <a href="https://www.google.com" target="_blank">Visit Google</a>
+    
+    <hr>
+    
+    <!-- Semantic Tags -->
+    <header><h3>Header Section</h3></header>
+    <nav><a href="#">Home</a> | <a href="#">About</a></nav>
+    <main>
+        <section><h3>Section</h3><p>Content in section.</p></section>
+        <article><h3>Article</h3><p>Independent article content.</p></article>
+        <aside><h3>Aside</h3><p>Sidebar content.</p></aside>
+    </main>
+    <footer><p>Footer Content</p></footer>
+        
+
+    <!-- SVG and Canvas -->
+    <svg width="100" height="100">
+        <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+    </svg>
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000;"></canvas>
+    
+    <hr>
+    
+</body>
+</html>

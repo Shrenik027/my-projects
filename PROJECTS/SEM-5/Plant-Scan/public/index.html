@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlantScan - Botanical Analysis</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+      :root {
+        --primary-green: #2d5a4d;
+        --secondary-green: #4a7c6d;
+        --accent-gold: #d4af37;
+        --light-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-dark: #2c3e50;
+        --text-light: #6c757d;
+        --border-light: #e9ecef;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        color: var(--text-dark);
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .logo-icon {
+        font-size: 3rem;
+        color: var(--primary-green);
+      }
+
+      .logo-text {
+        font-family: "Playfair Display", serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        letter-spacing: -1px;
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+        color: var(--text-light);
+        font-weight: 400;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .upload-section {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border-light);
+        margin-bottom: 30px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .upload-area {
+        border: 2px dashed var(--secondary-green);
+        border-radius: 15px;
+        padding: 40px 30px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: rgba(45, 90, 77, 0.02);
+      }
+
+      .upload-area:hover {
+        border-color: var(--primary-green);
+        background: rgba(45, 90, 77, 0.05);
+      }
+
+      .upload-icon {
+        font-size: 2.5rem;
+        color: var(--primary-green);
+        margin-bottom: 15px;
+        opacity: 0.8;
+      }
+
+      .upload-text {
+        font-size: 1.2rem;
+        color: var(--primary-green);
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .upload-subtext {
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+
+      #imagePreview {
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 10px;
+        margin-top: 15px;
+        display: none;
+        border: 1px solid var(--border-light);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .analyze-btn {
+        width: 100%;
+        padding: 16px;
+        background: var(--primary-green);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-family: "Inter", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+      }
+
+      .analyze-btn:hover:not(:disabled) {
+        background: var(--secondary-green);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(45, 90, 77, 0.3);
+      }
+
+      .analyze-btn:disabled {
+        background: var(--text-light);
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Results Section */
+      .results-container {
+        display: none;
+        background: var(--card-bg);
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        border: 1px solid var(--border-light);
+        margin-top: 30px;
+        overflow: hidden;
+        animation: slideUp 0.6s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .results-header {
+        background: linear-gradient(135deg, var(--primary-green), #1e4a3d);
+        color: white;
+        padding: 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .results-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      .results-title {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        position: relative;
+      }
+
+      .results-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        font-weight: 400;
+      }
+
+      .results-content {
+        padding: 40px;
+      }
+
+      .plant-hero {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+        align-items: start;
+      }
+
+      .plant-image-container {
+        position: relative;
+      }
+
+      .plant-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        border: 3px solid white;
+      }
+
+      .species-badge {
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, var(--accent-gold), #b8941f);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        white-space: nowrap;
+      }
+
+      .key-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+
+      .info-card {
+        background: rgba(45, 90, 77, 0.03);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .info-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .info-icon {
+        font-size: 2rem;
+        color: var(--primary-green);
+        margin-bottom: 15px;
+      }
+
+      .info-label {
+        font-size: 0.9rem;
+        color: var(--text-light);
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .info-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-dark);
+      }
+
+      /* 5 Analysis Sections Grid */
+      .analysis-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+
+      .analysis-card {
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .analysis-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid rgba(45, 90, 77, 0.1);
+      }
+
+      .card-icon {
+        font-size: 1.8rem;
+        color: var(--primary-green);
+      }
+
+      .card-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        font-family: "Playfair Display", serif;
+      }
+
+      .card-content {
+        color: var(--text-dark);
+        line-height: 1.7;
+        flex: 1;
+        max-height: 200px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      .card-content::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      .card-content::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 2px;
+      }
+
+      .card-content::-webkit-scrollbar-thumb {
+        background: var(--secondary-green);
+        border-radius: 2px;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+      }
+
+      .download-btn {
+        padding: 16px 35px;
+        background: var(--primary-green);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.1rem;
+      }
+
+      .download-btn:hover {
+        background: var(--secondary-green);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(45, 90, 77, 0.3);
+      }
+
+      .new-analysis-btn {
+        padding: 16px 35px;
+        background: transparent;
+        border: 2px solid var(--primary-green);
+        border-radius: 12px;
+        color: var(--primary-green);
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.1rem;
+      }
+
+      .new-analysis-btn:hover {
+        background: var(--primary-green);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .loading-state {
+        text-align: center;
+        padding: 60px 20px;
+        display: none;
+      }
+
+      .loading-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        background: var(--primary-green);
+        border-radius: 50%;
+        animation: dotPulse 1.4s ease-in-out infinite both;
+      }
+
+      .dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes dotPulse {
+        0%,
+        80%,
+        100% {
+          transform: scale(0.8);
+          opacity: 0.5;
+        }
+        40% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
+      }
+
+      .loading-text {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        font-weight: 500;
+      }
+
+      @media (max-width: 768px) {
+        .plant-hero {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .key-info-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .analysis-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .logo-text {
+          font-size: 2.5rem;
+        }
+
+        .results-title {
+          font-size: 2rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 20px 15px;
+        }
+
+        .upload-section {
+          padding: 20px;
+        }
+
+        .results-content {
+          padding: 25px 20px;
+        }
+
+        .key-info-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo">
+          <i class="fas fa-leaf logo-icon"></i>
+          <h1 class="logo-text">PlantScan</h1>
+        </div>
+        <p class="subtitle">
+          Advanced plant analysis through artificial intelligence
+        </p>
+      </div>
+
+      <!-- Upload Section -->
+      <div class="upload-section">
+        <div class="upload-area" id="dropArea">
+          <i class="fas fa-microscope upload-icon"></i>
+          <p class="upload-text">Upload Plant Image</p>
+          <p class="upload-subtext">Drag & drop or click to select an image</p>
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            required
+            id="imageInput"
+            style="display: none"
+          />
+          <img id="imagePreview" alt="Plant image preview" />
+        </div>
+
+        <button class="analyze-btn" id="analyzeButton" disabled>
+          <i class="fas fa-search"></i> Analyze Plant
+        </button>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-state" id="loading">
+        <div class="loading-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <p class="loading-text">Analyzing botanical characteristics...</p>
+      </div>
+
+      <!-- Results Container -->
+      <div class="results-container" id="resultsContainer">
+        <div class="results-header">
+          <h2 class="results-title">
+            <i class="fas fa-clipboard-check"></i>
+            Botanical Analysis Report
+          </h2>
+          <p class="results-subtitle" id="reportSubtitle">
+            Complete plant analysis and care recommendations
+          </p>
+        </div>
+
+        <div class="results-content">
+          <div class="plant-hero">
+            <div class="plant-image-container">
+              <img
+                id="analysisImage"
+                class="plant-image"
+                alt="Analyzed plant"
+              />
+              <div class="species-badge" id="speciesBadge">
+                <i class="fas fa-seedling"></i>
+                <span id="speciesName">Plant Species</span>
+              </div>
+            </div>
+
+            <div class="key-info-grid">
+              <div class="info-card">
+                <i class="fas fa-heartbeat info-icon"></i>
+                <div class="info-label">Health Status</div>
+                <div class="info-value" id="healthStatus">Analyzing...</div>
+              </div>
+              <div class="info-card">
+                <i class="fas fa-sun info-icon"></i>
+                <div class="info-label">Light Needs</div>
+                <div class="info-value" id="lightNeeds">Analyzing...</div>
+              </div>
+              <div class="info-card">
+                <i class="fas fa-tint info-icon"></i>
+                <div class="info-label">Water Frequency</div>
+                <div class="info-value" id="waterNeeds">Analyzing...</div>
+              </div>
+              <div class="info-card">
+                <i class="fas fa-thermometer-half info-icon"></i>
+                <div class="info-label">Difficulty Level</div>
+                <div class="info-value" id="difficulty">Analyzing...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5 Analysis Sections -->
+          <div class="analysis-grid">
+            <!-- Species Identification -->
+            <div class="analysis-card">
+              <div class="card-header">
+                <i class="fas fa-dna card-icon"></i>
+                <h3 class="card-title">Species Identification</h3>
+              </div>
+              <div class="card-content" id="speciesContent">
+                Scientific name, common names, kingdom, and family
+                classification will appear here.
+              </div>
+            </div>
+
+            <!-- Health Assessment -->
+            <div class="analysis-card">
+              <div class="card-header">
+                <i class="fas fa-heartbeat card-icon"></i>
+                <h3 class="card-title">Health Assessment</h3>
+              </div>
+              <div class="card-content" id="healthContent">
+                Overall health status, visible signs, and growth condition
+                assessment.
+              </div>
+            </div>
+
+            <!-- Botanical Characteristics -->
+            <div class="analysis-card">
+              <div class="card-header">
+                <i class="fas fa-leaf card-icon"></i>
+                <h3 class="card-title">Botanical Characteristics</h3>
+              </div>
+              <div class="card-content" id="characteristicsContent">
+                Physical characteristics, growth patterns, and unique
+                identifying features.
+              </div>
+            </div>
+
+            <!-- Care Instructions -->
+            <div class="analysis-card">
+              <div class="card-header">
+                <i class="fas fa-tint card-icon"></i>
+                <h3 class="card-title">Care Instructions</h3>
+              </div>
+              <div class="card-content" id="careContent">
+                Watering, light, soil, temperature, humidity, and maintenance
+                guidelines.
+              </div>
+            </div>
+
+            <!-- Interesting Facts -->
+            <div class="analysis-card">
+              <div class="card-header">
+                <i class="fas fa-lightbulb card-icon"></i>
+                <h3 class="card-title">Interesting Facts</h3>
+              </div>
+              <div class="card-content" id="factsContent">
+                Native habitat, ecological significance, historical importance,
+                and unique properties.
+              </div>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="download-btn" id="downloadButton">
+              <i class="fas fa-download"></i> Download PDF Report
+            </button>
+            <button class="new-analysis-btn" id="newAnalysisButton">
+              <i class="fas fa-plus"></i> New Analysis
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form
+      id="uploadForm"
+      enctype="multipart/form-data"
+      style="display: none"
+    ></form>
+
+    <script>
+      // DOM elements
+      const imageInput = document.getElementById("imageInput");
+      const imagePreview = document.getElementById("imagePreview");
+      const analyzeButton = document.getElementById("analyzeButton");
+      const dropArea = document.getElementById("dropArea");
+      const loadingDiv = document.getElementById("loading");
+      const resultsContainer = document.getElementById("resultsContainer");
+      const analysisImage = document.getElementById("analysisImage");
+      const speciesBadge = document.getElementById("speciesBadge");
+      const speciesName = document.getElementById("speciesName");
+      const healthStatus = document.getElementById("healthStatus");
+      const lightNeeds = document.getElementById("lightNeeds");
+      const waterNeeds = document.getElementById("waterNeeds");
+      const difficulty = document.getElementById("difficulty");
+
+      // 5 Analysis sections
+      const speciesContent = document.getElementById("speciesContent");
+      const healthContent = document.getElementById("healthContent");
+      const characteristicsContent = document.getElementById(
+        "characteristicsContent"
+      );
+      const careContent = document.getElementById("careContent");
+      const factsContent = document.getElementById("factsContent");
+
+      const downloadBtn = document.getElementById("downloadButton");
+      const newAnalysisBtn = document.getElementById("newAnalysisButton");
+
+      let analysisResult = "";
+      let currentImageData = "";
+
+      // Event listeners
+      dropArea.addEventListener("click", () => imageInput.click());
+
+      dropArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropArea.classList.add("dragover");
+      });
+
+      dropArea.addEventListener("dragleave", () => {
+        dropArea.classList.remove("dragover");
+      });
+
+      dropArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropArea.classList.remove("dragover");
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith("image/")) {
+          imageInput.files = e.dataTransfer.files;
+          handleImageUpload(file);
+        }
+      });
+
+      imageInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          handleImageUpload(file);
+        }
+      });
+
+      function handleImageUpload(file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imagePreview.src = e.target.result;
+          imagePreview.style.display = "block";
+          currentImageData = e.target.result;
+
+          // Enable analyze button
+          analyzeButton.disabled = false;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      analyzeButton.addEventListener("click", async () => {
+        if (!imageInput.files[0]) return;
+
+        const formData = new FormData();
+        formData.append("image", imageInput.files[0]);
+
+        // Show loading, hide upload section and results
+        loadingDiv.style.display = "block";
+        document.querySelector(".upload-section").style.display = "none";
+        resultsContainer.style.display = "none";
+        analyzeButton.disabled = true;
+
+        try {
+          const response = await fetch("/analyze", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await response.json();
+          if (data.result) {
+            analysisResult = data.result;
+            currentImageData = data.image;
+            displayResults(data.result, data.image);
+          } else if (data.error) {
+            showError("Analysis failed: " + data.error);
+          }
+        } catch (error) {
+          showError("Connection error: " + error.message);
+        } finally {
+          loadingDiv.style.display = "none";
+          analyzeButton.disabled = false;
+        }
+      });
+
+      function displayResults(result, image) {
+        console.log("Raw API Response:", result);
+
+        // Set the analysis image
+        analysisImage.src = image;
+
+        // Parse and display the results
+        parseResults(result);
+
+        // Show results container
+        resultsContainer.style.display = "block";
+      }
+
+      function parseResults(result) {
+        // Extract species name
+        const speciesMatch = result.match(
+          /(Rhaphidophora tetrasperma|Mini Monstera|Monstera Ginny|[A-Z][a-z]+ [a-z]+)/i
+        );
+        if (speciesMatch) {
+          speciesName.textContent = speciesMatch[0];
+        } else {
+          speciesName.textContent = "Plant Species";
+        }
+
+        // Parse content into 5 sections based on your prompt structure
+        parseIntoSections(result);
+      }
+
+      function parseIntoSections(result) {
+        const lines = result
+          .split("\n")
+          .filter((line) => line.trim().length > 5);
+
+        // Initialize sections
+        let speciesLines = [];
+        let healthLines = [];
+        let characteristicsLines = [];
+        let careLines = [];
+        let factsLines = [];
+
+        let currentSection = "";
+
+        lines.forEach((line) => {
+          const trimmedLine = line.trim();
+          const lowerLine = trimmedLine.toLowerCase();
+
+          // More accurate section detection
+          if (
+            lowerLine.includes("species identification") ||
+            lowerLine.includes("scientific name") ||
+            lowerLine.includes("common names") ||
+            lowerLine.includes("kingdom") ||
+            lowerLine.includes("family")
+          ) {
+            currentSection = "species";
+          } else if (
+            lowerLine.includes("health assessment") ||
+            lowerLine.includes("overall health") ||
+            lowerLine.includes("visible signs") ||
+            lowerLine.includes("health status") ||
+            lowerLine.includes("disease") ||
+            lowerLine.includes("pest") ||
+            lowerLine.includes("condition assessment")
+          ) {
+            currentSection = "health";
+          } else if (
+            lowerLine.includes("botanical characteristics") ||
+            lowerLine.includes("physical characteristics") ||
+            lowerLine.includes("growth patterns") ||
+            lowerLine.includes("morphology") ||
+            lowerLine.includes("identifying features")
+          ) {
+            currentSection = "characteristics";
+          } else if (
+            lowerLine.includes("care instructions") ||
+            lowerLine.includes("watering") ||
+            lowerLine.includes("light conditions") ||
+            lowerLine.includes("soil type") ||
+            lowerLine.includes("temperature") ||
+            lowerLine.includes("humidity") ||
+            lowerLine.includes("pruning") ||
+            lowerLine.includes("maintenance")
+          ) {
+            currentSection = "care";
+          } else if (
+            lowerLine.includes("interesting facts") ||
+            lowerLine.includes("native habitat") ||
+            lowerLine.includes("ecological significance") ||
+            lowerLine.includes("historical") ||
+            lowerLine.includes("cultural") ||
+            lowerLine.includes("unique properties")
+          ) {
+            currentSection = "facts";
+          }
+
+          // Add content to appropriate section (more lenient now)
+          if (currentSection && trimmedLine && trimmedLine.length > 10) {
+            switch (currentSection) {
+              case "species":
+                speciesLines.push(trimmedLine);
+                break;
+              case "health":
+                healthLines.push(trimmedLine);
+                break;
+              case "characteristics":
+                characteristicsLines.push(trimmedLine);
+                break;
+              case "care":
+                careLines.push(trimmedLine);
+                break;
+              case "facts":
+                factsLines.push(trimmedLine);
+                break;
+            }
+          }
+        });
+
+        // If health section is empty but we have health-related content in other sections, move it
+        if (healthLines.length === 0) {
+          // Look for health-related content in other sections
+          const allLines = [
+            ...speciesLines,
+            ...characteristicsLines,
+            ...careLines,
+            ...factsLines,
+          ];
+          allLines.forEach((line, index) => {
+            const lowerLine = line.toLowerCase();
+            if (
+              lowerLine.includes("healthy") ||
+              lowerLine.includes("disease") ||
+              lowerLine.includes("pest") ||
+              lowerLine.includes("wilting") ||
+              lowerLine.includes("yellow") ||
+              lowerLine.includes("brown") ||
+              lowerLine.includes("fungus") ||
+              lowerLine.includes("mold") ||
+              lowerLine.includes("rot") ||
+              lowerLine.includes("infected")
+            ) {
+              healthLines.push(line);
+              // Remove from original section
+              if (speciesLines.includes(line))
+                speciesLines = speciesLines.filter((l) => l !== line);
+              if (characteristicsLines.includes(line))
+                characteristicsLines = characteristicsLines.filter(
+                  (l) => l !== line
+                );
+              if (careLines.includes(line))
+                careLines = careLines.filter((l) => l !== line);
+              if (factsLines.includes(line))
+                factsLines = factsLines.filter((l) => l !== line);
+            }
+          });
+        }
+
+        // Display content in respective sections
+        displaySectionContent(
+          speciesContent,
+          speciesLines,
+          "Scientific classification details"
+        );
+        displaySectionContent(
+          healthContent,
+          healthLines,
+          "Health and condition analysis"
+        );
+        displaySectionContent(
+          characteristicsContent,
+          characteristicsLines,
+          "Physical characteristics and growth patterns"
+        );
+        displaySectionContent(
+          careContent,
+          careLines,
+          "Care and maintenance instructions"
+        );
+        displaySectionContent(
+          factsContent,
+          factsLines,
+          "Interesting botanical facts"
+        );
+
+        // Update quick info cards with improved logic
+        updateQuickInfo(healthLines, careLines);
+      }
+
+      function displaySectionContent(container, contentArray, fallbackText) {
+        if (contentArray.length > 0) {
+          container.innerHTML = contentArray
+            .map((line) => {
+              // Add color coding for health-related terms
+              let processedLine = line;
+
+              // Color positive health terms green
+              const positiveTerms = [
+                "healthy",
+                "vibrant",
+                "excellent",
+                "strong",
+                "thriving",
+                "good condition",
+                "lush",
+                "robust",
+              ];
+              positiveTerms.forEach((term) => {
+                const regex = new RegExp(term, "gi");
+                processedLine = processedLine.replace(
+                  regex,
+                  `<span style="color: #28a745; font-weight: 600;">${term}</span>`
+                );
+              });
+
+              // Color negative health terms red
+              const negativeTerms = [
+                "disease",
+                "diseased",
+                "pest",
+                "infected",
+                "fungus",
+                "mold",
+                "rot",
+                "wilting",
+                "wilted",
+                "yellow",
+                "browning",
+                "dying",
+                "dead",
+                "weak",
+                "poor condition",
+                "deficiency",
+                "stressed",
+              ];
+              negativeTerms.forEach((term) => {
+                const regex = new RegExp(term, "gi");
+                processedLine = processedLine.replace(
+                  regex,
+                  `<span style="color: #dc3545; font-weight: 600;">${term}</span>`
+                );
+              });
+
+              return `<div style="margin-bottom: 10px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05); line-height: 1.5;">${processedLine}</div>`;
+            })
+            .join("");
+        } else {
+          container.innerHTML = `<div style="color: var(--text-light); font-style: italic; text-align: center; padding: 30px;">${fallbackText}</div>`;
+        }
+      }
+
+      function updateQuickInfo(healthLines, careLines) {
+        // Combine all health-related text for analysis
+        const healthText = healthLines.join(" ").toLowerCase();
+        const fullText = healthText + " " + careLines.join(" ").toLowerCase();
+
+        // More sophisticated health assessment
+        let healthStatusText = "Good";
+        let healthColor = "#ffc107"; // Default to yellow/warning
+
+        // Check for positive health indicators
+        const positiveIndicators = [
+          "healthy",
+          "vibrant",
+          "excellent",
+          "strong",
+          "thriving",
+          "lush",
+          "green",
+          "firm",
+          "robust",
+          "vigorous",
+          "flourishing",
+        ];
+
+        // Check for negative health indicators
+        const negativeIndicators = [
+          "disease",
+          "diseased",
+          "pest",
+          "infected",
+          "fungus",
+          "mold",
+          "rot",
+          "wilting",
+          "wilted",
+          "yellow",
+          "yellowing",
+          "brown",
+          "browning",
+          "spots",
+          "spotting",
+          "drooping",
+          "dying",
+          "dead",
+          "weak",
+          "poor",
+          "unhealthy",
+          "stressed",
+          "deficiency",
+          "infected",
+        ];
+
+        // Count positive and negative indicators
+        let positiveCount = 0;
+        let negativeCount = 0;
+
+        positiveIndicators.forEach((indicator) => {
+          if (healthText.includes(indicator)) positiveCount++;
+        });
+
+        negativeIndicators.forEach((indicator) => {
+          if (healthText.includes(indicator)) negativeCount++;
+        });
+
+        // Determine health status based on indicators
+        if (negativeCount > positiveCount && negativeCount >= 2) {
+          healthStatusText = "Needs Care";
+          healthColor = "#dc3545"; // Red
+        } else if (positiveCount > negativeCount && positiveCount >= 2) {
+          healthStatusText = "Excellent";
+          healthColor = "#28a745"; // Green
+        } else if (positiveCount === 0 && negativeCount === 0) {
+          healthStatusText = "Unknown";
+          healthColor = "#6c757d"; // Gray
+        } else {
+          healthStatusText = "Good";
+          healthColor = "#ffc107"; // Yellow
+        }
+
+        // Override based on specific strong indicators
+        if (
+          healthText.includes("dying") ||
+          healthText.includes("dead") ||
+          healthText.includes("severe disease")
+        ) {
+          healthStatusText = "Critical";
+          healthColor = "#dc3545";
+        } else if (
+          healthText.includes("excellent health") ||
+          healthText.includes("very healthy") ||
+          healthText.includes("thriving")
+        ) {
+          healthStatusText = "Excellent";
+          healthColor = "#28a745";
+        }
+
+        healthStatus.textContent = healthStatusText;
+        healthStatus.style.color = healthColor;
+
+        // Update light needs with better logic
+        if (
+          fullText.includes("bright indirect") ||
+          fullText.includes("filtered light")
+        ) {
+          lightNeeds.textContent = "Bright Indirect";
+        } else if (
+          fullText.includes("direct sun") ||
+          fullText.includes("full sun")
+        ) {
+          lightNeeds.textContent = "Direct Sun";
+        } else if (
+          fullText.includes("low light") ||
+          fullText.includes("shade")
+        ) {
+          lightNeeds.textContent = "Low Light";
+        } else if (
+          fullText.includes("partial sun") ||
+          fullText.includes("morning sun")
+        ) {
+          lightNeeds.textContent = "Partial Sun";
+        } else {
+          lightNeeds.textContent = "Moderate Light";
+        }
+
+        // Update water needs with better logic
+        if (
+          fullText.includes("keep moist") ||
+          fullText.includes("regular watering") ||
+          fullText.includes("frequent")
+        ) {
+          waterNeeds.textContent = "Keep Moist";
+        } else if (
+          fullText.includes("allow to dry") ||
+          fullText.includes("drought tolerant") ||
+          fullText.includes("infrequent")
+        ) {
+          waterNeeds.textContent = "Let Dry Out";
+        } else if (
+          fullText.includes("weekly") ||
+          fullText.includes("once a week")
+        ) {
+          waterNeeds.textContent = "Weekly";
+        } else if (
+          fullText.includes("daily") ||
+          fullText.includes("keep wet")
+        ) {
+          waterNeeds.textContent = "Frequent";
+        } else {
+          waterNeeds.textContent = "Moderate";
+        }
+
+        // Set difficulty based on care requirements
+        if (
+          fullText.includes("easy") ||
+          fullText.includes("beginner") ||
+          fullText.includes("low maintenance")
+        ) {
+          difficulty.textContent = "Easy";
+        } else if (
+          fullText.includes("difficult") ||
+          fullText.includes("challenging") ||
+          fullText.includes("high maintenance")
+        ) {
+          difficulty.textContent = "Advanced";
+        } else {
+          difficulty.textContent = "Moderate";
+        }
+      }
+
+      function showError(message) {
+        speciesContent.innerHTML = `<div style="color: #dc3545; text-align: center; padding: 20px;">${message}</div>`;
+        resultsContainer.style.display = "block";
+        loadingDiv.style.display = "none";
+      }
+
+      downloadBtn.addEventListener("click", async () => {
+        const response = await fetch("/download", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            result: analysisResult,
+            image: currentImageData,
+          }),
+        });
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "PlantScan_Analysis_Report.pdf";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        } else {
+          alert("Failed to generate PDF report.");
+        }
+      });
+
+      newAnalysisBtn.addEventListener("click", () => {
+        // Reset the form and show upload section
+        imageInput.value = "";
+        imagePreview.style.display = "none";
+        analyzeButton.disabled = true;
+        resultsContainer.style.display = "none";
+        document.querySelector(".upload-section").style.display = "block";
+      });
+    </script>
+  </body>
+</html>

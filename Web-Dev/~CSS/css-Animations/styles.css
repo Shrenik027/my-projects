@@ -1,0 +1,53 @@
+/* Utility Classes */
+.animate {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.animate.animate--infinite {
+  animation-iteration-count: infinite;
+}
+
+.animate.animate--delay-1s {
+  animation-delay: 1s;
+}
+
+.animate.animate--fast {
+  animation-duration: 0.6s;
+}
+.animate.animate--slow {
+  animation-duration: 3s;
+}
+
+/*Animations*/
+@keyframes slideInleft {
+  from {
+    transform: translateX(-300px);
+  }
+
+  to {
+    transform: translate(0);
+  }
+}
+
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+
+.slideInleft {
+  animation-name: slideInleft;
+  animation-timing-function: ease-in;
+}
+
+.heading-1 {
+  /* animation-name: slideInleft;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-delay: 1s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: both;
+ */
+}
