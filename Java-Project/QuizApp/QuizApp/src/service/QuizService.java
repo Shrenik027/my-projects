@@ -13,11 +13,25 @@ public class QuizService {
 
             int score = 0;
 
-            // 1. Create attempt
+            //  STEP 1: SHOW AVAILABLE QUIZZES
+            String quizQuery = "SELECT * FROM quiz";
+            PreparedStatement quizPs = conn.prepareStatement(quizQuery);
+            ResultSet quizRs = quizPs.executeQuery();
+
+            System.out.println("\n===== AVAILABLE QUIZZES =====");
+
+            while (quizRs.next()) {
+                System.out.println(quizRs.getInt("quiz_id") + ". " + quizRs.getString("title"));
+            }
+
+            System.out.print("Enter Quiz ID: ");
+            int quizId = Integer.parseInt(sc.nextLine());
+
+            //  STEP 2: CREATE ATTEMPT
             String attemptQuery = "INSERT INTO attempts (user_id, quiz_id) VALUES (?, ?)";
             PreparedStatement attemptPs = conn.prepareStatement(attemptQuery, Statement.RETURN_GENERATED_KEYS);
             attemptPs.setInt(1, userId);
-            attemptPs.setInt(2, 1); // using quiz_id = 1
+            attemptPs.setInt(2, quizId);
             attemptPs.executeUpdate();
 
             ResultSet keys = attemptPs.getGeneratedKeys();
@@ -26,11 +40,19 @@ public class QuizService {
                 attemptId = keys.getInt(1);
             }
 
-            // 2. Fetch questions
-            String query = "SELECT * FROM questions WHERE quiz_id = 1";
+            //  STEP 3: FETCH QUESTIONS BASED ON SELECTED QUIZ
+            String query = "SELECT * FROM questions WHERE quiz_id = ?";
             PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, quizId);
             ResultSet rs = ps.executeQuery();
 
+            //  CHECK IF NO QUESTIONS
+            if (!rs.isBeforeFirst()) {
+                System.out.println("No questions found for this quiz!");
+                return;
+            }
+
+            //  STEP 4: ASK QUESTIONS
             while (rs.next()) {
 
                 int qid = rs.getInt("question_id");
@@ -50,7 +72,7 @@ public class QuizService {
                     score++;
                 }
 
-                // 3. Save answer
+                //  SAVE ANSWER
                 String ansQuery = "INSERT INTO answers (attempt_id, question_id, selected_option) VALUES (?, ?, ?)";
                 PreparedStatement ansPs = conn.prepareStatement(ansQuery);
                 ansPs.setInt(1, attemptId);
@@ -59,7 +81,7 @@ public class QuizService {
                 ansPs.executeUpdate();
             }
 
-            // 4. Save score
+            //  STEP 5: SAVE SCORE
             String scoreQuery = "INSERT INTO scores (attempt_id, total_score) VALUES (?, ?)";
             PreparedStatement scorePs = conn.prepareStatement(scoreQuery);
             scorePs.setInt(1, attemptId);

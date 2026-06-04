@@ -1,0 +1,52 @@
+
+\begin{document}
+
+% ---------- HEADER ----------
+\begin{center}
+    {\Huge \scshape {{name}}} \\[6pt]
+    \small
+    {{location}} \quad
+    \faPhone~{{phone}} \quad
+    \faEnvelope~\href{mailto:{{email}}}{{email}} \quad
+    \faLinkedin~\href{{{linkedin_url}}}{{linkedin_text}} \quad
+    \faGithub~\href{{{github_url}}}{{github_text}} \quad
+    \faGlobe~\href{{{portfolio_url}}}{{portfolio_text}}
+\end{center}
+
+% ---------- SUMMARY ----------
+\section{Professional Summary}
+\small{
+{{summary}}
+}
+
+% ---------- SKILLS ----------
+\section{Technical Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+\small{
+{{skills_items}}
+}
+\end{itemize}
+
+% ---------- EXPERIENCE OR HOBBIES ----------
+{{experience_or_hobbies_section}}
+
+% ---------- PROJECTS ----------
+\section{Academic \& Personal Projects}
+\resumeSubHeadingListStart
+
+{{projects_block}}
+
+\resumeSubHeadingListEnd
+
+% ---------- EDUCATION ----------
+\section{Education}
+\resumeSubHeadingListStart
+
+{{education_block}}
+
+\resumeSubHeadingListEnd
+
+% ---------- CERTIFICATIONS OR EXTRACURRICULAR ----------
+{{certifications_or_extra_section}}
+
+\end{document}
